@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <base href="/" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Олександр Бачкай</title>    
+    <link href="~/Content/styles/angular/angular-material.css" rel="stylesheet" />
+    <link href="~/Content/styles/bootstrap/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/styles/Site.css" rel="stylesheet" />
+
+    <script src="~/Scripts/libs/jquery/jquery-3.1.1.js"></script>
+    <script src="~/Scripts/libs/bootstrap/bootstrap.js"></script>
+    <script src="~/Scripts/libs/angular/angular.js"></script>
+    <script src="~/Scripts/libs/angular/angular-material.js"></script>
+    <script src="~/Scripts/libs/angular/angular-cookies.js"></script>
+    <script src="~/Scripts/libs/angular/angular-loader.js"></script>
+    <script src="~/Scripts/libs/angular/angular-ui-router.js"></script>
+    <script src="~/Scripts/libs/tinymce/tinymce.js"></script>
+    <script src="~/Scripts/libs/tinymce/ui-tinymce.js"></script>    
+
+    <script src="~/Scripts/app/app.module.js"></script>
+    <script src="~/Scripts/app/app.config.js"></script>
+    <script src="~/Scripts/app/index.controller.js"></script>
+    <script src="~/Scripts/app/pages/welcome/welcome.controller.js"></script>
+    <script src="~/Scripts/app/pages/chat/chat.controller.js"></script>
+    <script src="~/Scripts/app/pages/information/information.controller.js"></script>
+    <script src="~/Scripts/app/pages/files/files.controller.js"></script>
+    
+</head>
+<body ng-app="app" ng-controller="indexController as vm">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a ui-sref="welcome">Welcome</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">                    
+                    <li><a ui-sref="information">Information</a></li>
+                    <li><a ui-sref="files">Files</a></li>
+                    <li><a ui-sref="chat">Chat</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">                
+        <textarea ui-tinymce="vm.tinymceOptions" ng-model="vm.tinymceModel"></textarea>
+        <ui-view></ui-view>
+    </div>      
+</body>
+</html>
