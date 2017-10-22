@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace oleksandrbachkai.Models
+namespace oleksandrbachkai.Models.Entities
 {
     public class Page
     {

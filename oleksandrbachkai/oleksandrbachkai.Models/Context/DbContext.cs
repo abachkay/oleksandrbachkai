@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
+using oleksandrbachkai.Models.Entities;
 
-namespace oleksandrbachkai.Models
+namespace oleksandrbachkai.Models.Context
 {
     public class DatabaseContext : DbContext
     {
