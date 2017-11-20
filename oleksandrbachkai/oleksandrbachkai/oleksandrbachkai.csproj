@@ -1067,6 +1067,8 @@
     <Content Include="Scripts\libs\jquery\jquery.validate.min.js" />
     <Content Include="Scripts\libs\jquery\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\libs\jquery\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\libs\tinymce\plugins\drive\plugin.js" />
+    <Content Include="Scripts\libs\tinymce\plugins\drive\plugin.min.js" />
     <Content Include="Scripts\libs\tinymce\ui-tinymce.js" />
     <Content Include="Scripts\libs\tinymce\ui-tinymce.min.js" />
     <Content Include="Scripts\libs\tinymce\jquery.tinymce.min.js" />
