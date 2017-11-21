@@ -1,0 +1,42 @@
+﻿<div class="row">
+    <div class="col-md-6 col-sm-12">
+        <h2 class="text-center">Login</h2>        
+        <div class="form-group">
+            <label>
+                Email
+                <input type="email" ng-model="vm.loginEmail"/>
+            </label>                
+        </div>
+        <div class="form-group">
+            <label>
+                Password
+                <input type="password" ng-model="vm.loginPassword"/>
+            </label>                
+        </div> 
+        <button ng-click="vm.login()">Login</button>        
+    </div>
+    <div class="col-md-6 col-sm-12">
+        <h2 class="text-center">Register</h2>
+        <form>
+            <div class="form-group">
+                <label>
+                    Email
+                    <input type="email" ng-model="vm.registerEmail"/>
+                </label>                
+            </div>
+            <div class="form-group">
+                <label>
+                    Password
+                    <input type="password" ng-model="vm.registerPassword"/>
+                </label>                
+            </div>
+            <div class="form-group">
+                <label>
+                    Password confirm
+                    <input type="password" ng-model="vm.registerPasswordConfirm"/>
+                </label>
+            </div>
+            <button ng-click="vm.register()">Login</button>   
+        </form>
+    </div>
+</div>
