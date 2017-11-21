@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
 using oleksandrbachkai.Providers;
@@ -56,11 +57,11 @@ namespace oleksandrbachkai
             //    appId: "",
             //    appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "908115096918-6gmmbad1ls24vooff69g1pqqioflod41.apps.googleusercontent.com",
+                ClientSecret = "QuKVI-Ze4HEldjJbjpM7VRid"
+            });
         }
     }
 }
