@@ -20,11 +20,14 @@
     <script src="~/Scripts/libs/tinymce/ui-tinymce.js"></script>    
 
     <script src="~/Scripts/app/app.module.js"></script>
-    <script src="~/Scripts/app/app.config.js"></script>
+    <script src="~/Scripts/app/app.config.js"></script>    
     <script src="~/Scripts/app/index.controller.js"></script>
+    <script src="~/Scripts/app/pages/login/login.controller.js"></script>
+    <script src="~/Scripts/app/pages/login/login.service.js"></script>
     <script src="~/Scripts/app/pages/welcome/welcome.controller.js"></script>
     <script src="~/Scripts/app/pages/chat/chat.controller.js"></script>
     <script src="~/Scripts/app/pages/information/information.controller.js"></script>
+    <script src="~/Scripts/app/pages/files/files.factory.js"></script>
     <script src="~/Scripts/app/pages/files/files.controller.js"></script>
     
 </head>
@@ -44,12 +47,12 @@
                     <li><a ui-sref="information">Information</a></li>
                     <li><a ui-sref="files">Files</a></li>
                     <li><a ui-sref="chat">Chat</a></li>
+                    <li><a ui-sref="login">Login</a></li>
                 </ul>
             </div>
         </div>
     </div>
-<div class="container body-content">       
-    @*<iframe src="https://drive.google.com/embeddedfolderview?id=1WjYs7yqsVR4A5hx8AkLwe41I0fwnEXOa#list" style="width:100%; height:600px; border:0;"></iframe>*@
+<div class="container body-content">           
     <ui-view></ui-view>
 </div>
 </body>

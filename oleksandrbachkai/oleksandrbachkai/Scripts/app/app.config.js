@@ -7,6 +7,11 @@
                 templateUrl: '/Content/pages/welcome.html',
                 controller: 'welcomeController',
                 controllerAs: 'vm'
+            }).state('login', {
+                url: '/login',
+                templateUrl: '/Content/pages/login.html',
+                controller: 'loginController',
+                controllerAs: 'vm'
             }).state('information', {
                 url: '/information',
                 templateUrl: '/Content/pages/information.html',

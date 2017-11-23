@@ -227,6 +227,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\pages\login.html" />
     <Content Include="Content\styles\angular-material.css" />
     <Content Include="Content\styles\angular-material.layout-attributes.css" />
     <Content Include="Content\styles\angular-material.layout-attributes.min.css" />
@@ -246,6 +247,9 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\app\pages\files\files.factory.js" />
+    <Content Include="Scripts\app\pages\login\login.controller.js" />
+    <Content Include="Scripts\app\pages\login\login.service.js" />
     <Content Include="Scripts\libs\angular\angular-material-mocks.js" />
     <Content Include="Scripts\libs\angular\angular-material.js" />
     <Content Include="Scripts\libs\angular\angular-material.min.js" />

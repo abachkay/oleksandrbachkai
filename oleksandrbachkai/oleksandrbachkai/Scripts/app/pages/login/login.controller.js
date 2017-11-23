@@ -9,19 +9,22 @@
         vm.loginEmail = "";
         vm.loginPassword = "";
         vm.login = login;
+        vm.loginErrors = null;
 
         vm.registerEmail = "";
         vm.registerPassword = "";
         vm.registerPasswordConfirm = "";
         vm.register = register;
+        vm.registerErrors = null;
 
         function login() {           
-            loginService.login(vm.loginEmail, vm.loginPassword).then(function (response) {
-                alert("logged in");
+            loginService.login(vm.loginEmail, vm.loginPassword).then(function (response) {                
+                //alert("logged in");
                 //$cookies.put("access_token", response.data.access_token);
                 //$scope.$emit("loginEvent");
+                vm.loginErrors = null;
             }, function (response) {
-                vm.errors = "Invalid email or password.";
+                vm.loginErrors = "Invalid email or password";
             }).finally(function() {
                 vm.loginEmail = "";
                 vm.loginPassword = "";
@@ -29,14 +32,16 @@
         }
 
         function register() {
-            loginService.register(vm.registerEmail, vm.registerPassword, vm.registerPasswordConfirm).then(function (response) {
-                alert("register");
+            loginService.register(vm.registerEmail, vm.registerPassword, vm.registerPasswordConfirm).then(function (response) {                
+                vm.registerErrors = null;
             }, function (response) {
-                vm.errors = [];
+                vm.registerErrorsArray = [];
+                vm.registerErrors = "";
                 for (var key in response.data['ModelState']) {
                     var arr = response.data['ModelState'][key];
                     for (var i = 0; i < arr.length; i++) {
-                        vm.errors.push(arr[i]);
+                        vm.registerErrorsArray.push(arr[i]);
+                        vm.registerErrors += arr[i];
                     }
                 }
             }).finally(function () {

@@ -4,16 +4,19 @@
         <div class="form-group">
             <label>
                 Email
+                <br />
                 <input type="email" ng-model="vm.loginEmail"/>
             </label>                
         </div>
         <div class="form-group">
             <label>
                 Password
+                <br />
                 <input type="password" ng-model="vm.loginPassword"/>
             </label>                
         </div> 
-        <button ng-click="vm.login()">Login</button>        
+        <button ng-click="vm.login()">Login</button>
+        <p>{{vm.loginErrors}}</p>
     </div>
     <div class="col-md-6 col-sm-12">
         <h2 class="text-center">Register</h2>
@@ -21,22 +24,26 @@
             <div class="form-group">
                 <label>
                     Email
+                    <br />
                     <input type="email" ng-model="vm.registerEmail"/>
                 </label>                
             </div>
             <div class="form-group">
                 <label>
                     Password
+                    <br />
                     <input type="password" ng-model="vm.registerPassword"/>
                 </label>                
             </div>
             <div class="form-group">
                 <label>
                     Password confirm
+                    <br />
                     <input type="password" ng-model="vm.registerPasswordConfirm"/>
                 </label>
             </div>
-            <button ng-click="vm.register()">Login</button>   
+            <button ng-click="vm.register()">Register</button>               
+            <p>{{vm.registerErrors}}</p>
         </form>
     </div>
 </div>
