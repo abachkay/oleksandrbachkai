@@ -17,6 +17,8 @@
         vm.register = register;
         vm.registerErrors = null;
 
+        vm.loginGoogle = loginGoogle;
+
         function login() {           
             loginService.login(vm.loginEmail, vm.loginPassword).then(function (response) {                
                 //alert("logged in");
@@ -48,6 +50,17 @@
                 vm.registerEmail = "";
                 vm.registerPassword = "";
                 vm.registerPasswordConfirm = "";
+            });
+        }
+
+        function loginGoogle() {            
+            loginService.getExternalLogins().then(function (response) {
+                console.log(response);
+                location.href = response.data[0].Url;
+            }, function (response) {
+               
+            }).finally(function () {
+               
             });
         }
     }
