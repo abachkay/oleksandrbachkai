@@ -54,8 +54,7 @@
         }
 
         function loginGoogle() {            
-            loginService.getExternalLogins().then(function (response) {
-                console.log(response);
+            loginService.getExternalLogins().then(function (response) {                
                 location.href = response.data[0].Url;
             }, function (response) {
                
