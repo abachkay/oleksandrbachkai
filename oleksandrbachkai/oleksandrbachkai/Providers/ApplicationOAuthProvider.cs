@@ -64,25 +64,25 @@ namespace oleksandrbachkai.Providers
         public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
             // Resource owner password credentials does not provide a client ID.
-            //if (context.ClientId == null)
-            //{
+            if (context.ClientId == null)
+            {
                 context.Validated();
-            //}
+            }
 
             return Task.FromResult<object>(null);
         }
 
         public override Task ValidateClientRedirectUri(OAuthValidateClientRedirectUriContext context)
         {
-            //if (context.ClientId == _publicClientId)
-            //{
-            //    Uri expectedRootUri = new Uri(context.Request.Uri, "/");
+            if (context.ClientId == _publicClientId)
+            {
+                Uri expectedRootUri = new Uri(context.Request.Uri, "/");
 
-            //    if (expectedRootUri.AbsoluteUri == context.RedirectUri)
-            //    {
+                if (expectedRootUri.AbsoluteUri == context.RedirectUri)
+                {
                     context.Validated();
-            //    }
-            //}
+                }
+            }
 
             return Task.FromResult<object>(null);
         }
