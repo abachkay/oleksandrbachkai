@@ -12,6 +12,7 @@
             if (token) {
                 console.log(token);
                 $cookies.put('access_token', token);
+                $location.url('/');
             }    
         }
         

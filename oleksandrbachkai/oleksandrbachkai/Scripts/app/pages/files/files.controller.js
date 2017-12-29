@@ -8,9 +8,9 @@
         vm.title = 'files';
         vm.getValues = getValues;
 
-        function getValues()
-        {
-            filesFactory.getValues().then(function (response) {
+        function getValues() {
+            var token = $cookies.get('access_token');
+            filesFactory.getValues(token).then(function (response) {
                 console.log(response);
             }, function (response) {
                 console.log(response);

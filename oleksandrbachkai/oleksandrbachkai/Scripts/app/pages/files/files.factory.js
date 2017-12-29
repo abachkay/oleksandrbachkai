@@ -7,10 +7,13 @@
         return {
             getValues: getValues
         }       
-        function getValues() {
+        function getValues(token) {
             return $http({
                 method: "GET",
-                url: "/api/values",                
+                url: "/api/values",
+                headers: {
+                    "Authorization": "Bearer " + token
+                }
             });
         }                
     }
