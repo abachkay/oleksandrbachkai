@@ -1386,6 +1386,12 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\oleksandrbachkai.Models\oleksandrbachkai.Models.csproj">
+      <Project>{A4DF8E67-FEB5-4CCB-B2A8-0283F5BE2572}</Project>
+      <Name>oleksandrbachkai.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

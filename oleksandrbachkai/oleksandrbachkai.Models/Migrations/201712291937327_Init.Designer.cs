@@ -13,7 +13,7 @@ namespace oleksandrbachkai.Models.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201710221543419_Init"; }
+            get { return "201712291937327_Init"; }
         }
         
         string IMigrationMetadata.Source
