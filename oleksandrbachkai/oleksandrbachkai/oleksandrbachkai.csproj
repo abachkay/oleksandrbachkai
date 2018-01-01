@@ -246,6 +246,7 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\app\index.service.js" />
     <Content Include="Scripts\libs\angular\angular-material-mocks.js" />
     <Content Include="Scripts\libs\angular\angular-material.js" />
     <Content Include="Scripts\libs\angular\angular-material.min.js" />

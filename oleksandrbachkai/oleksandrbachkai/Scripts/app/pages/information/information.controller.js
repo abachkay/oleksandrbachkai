@@ -1,11 +1,12 @@
 ﻿(function (angular) {
     angular
         .module("app")
-        .controller("informationController", linksController);
-    linksController.$inject = ['$scope', '$cookies'];
-    function linksController($scope, $cookies) {
+        .controller("informationController", informationController);
+    informationController.$inject = ['$scope', '$rootScope', '$cookies'];
+    function informationController($scope, $rootScope, $cookies) {
         var vm = this;
         vm.title = 'info';
+        vm.content = '';
 
         // tinymce options
         vm.tinymceModel = 'sdfg';
@@ -25,6 +26,14 @@
             ],
             toolbar1: 'insertfile undo redo | styleselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media | forecolor backcolor emoticons | drive',
             image_advtab: true,           
-        };                
+        };
+
+        $rootScope.$on('pageSelected', function (event, args) {
+            vm.content = args.content;
+        });
+
+        $rootScope.$on('event1', function (event) {
+            alert('event1');
+        });      
     }
 })(angular);
