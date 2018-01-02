@@ -27,13 +27,10 @@
             toolbar1: 'insertfile undo redo | styleselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media | forecolor backcolor emoticons | drive',
             image_advtab: true,           
         };
-
-        $rootScope.$on('pageSelected', function (event, args) {
-            vm.content = args.content;
-        });
-
-        $rootScope.$on('event1', function (event) {
-            alert('event1');
-        });      
+             
+        $scope.$on('pageSelected', function (event, pageContent) {
+            vm.content = pageContent;
+            console.log(pageContent);
+        });  
     }
 })(angular);
