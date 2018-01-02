@@ -4,7 +4,7 @@
     <base href="/" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>a</title>    
+    <title>a</title>
     <link href="~/Content/styles/angular-material.css" rel="stylesheet" />
     <link href="~/Content/styles/bootstrap/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/styles/Site.css" rel="stylesheet" />
@@ -17,17 +17,18 @@
     <script src="~/Scripts/libs/angular/angular-loader.js"></script>
     <script src="~/Scripts/libs/angular/angular-ui-router.js"></script>
     <script src="~/Scripts/libs/tinymce/tinymce.js"></script>
-    <script src="~/Scripts/libs/tinymce/ui-tinymce.js"></script>    
+    <script src="~/Scripts/libs/tinymce/ui-tinymce.js"></script>
 
     <script src="~/Scripts/app/app.module.js"></script>
     <script src="~/Scripts/app/app.config.js"></script>
     <script src="~/Scripts/app/index.controller.js"></script>
-    <script src="~/Scripts/app/index.service.js"></script>    
+    <script src="~/Scripts/app/index.service.js"></script>
     <script src="~/Scripts/app/pages/welcome/welcome.controller.js"></script>
     <script src="~/Scripts/app/pages/chat/chat.controller.js"></script>
-    <script src="~/Scripts/app/pages/information/information.controller.js"></script>    
+    <script src="~/Scripts/app/pages/information/information.controller.js"></script>
+    <script src="~/Scripts/app/pages/information/information.service.js"></script>
     <script src="~/Scripts/app/pages/files/files.controller.js"></script>
-    
+
 </head>
 <body ng-app="app" ng-controller="indexController as vm">
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -41,16 +42,18 @@
                 <a ui-sref="welcome">Welcome</a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">                    
-                    <li><a ui-sref="information">Information</a></li>
+                <ul class="nav navbar-nav">                                        
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown">
+                        <a class="dropdown-toggle" href data-toggle="dropdown">
                             Information
                             <span class="caret"></span>
                         </a>
-                        <ul class="dropdown-menu">
-                            <li><a>sadasd</a></li>
-                            <li><a>fafs</a></li>
+                        <ul class="dropdown-menu">                            
+                            <li ng-repeat="page in vm.pages" >
+                                <a ui-sref="information" ng-click="vm.selectInformationPage(page.PageId)">{{page.Name}}</a>
+                                <button ng-click="vm.deletePage(page.PageId)">X</button>
+                            </li>   
+                            <li><input type="text" ng-model="vm.newPageName"/><button ng-click="vm.createPage()">+</button></li>
                         </ul>
                     </li>
                     <li><a ui-sref="files">Files</a></li>

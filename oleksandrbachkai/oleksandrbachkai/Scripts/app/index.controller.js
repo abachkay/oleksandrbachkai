@@ -6,10 +6,13 @@
     function indexController($scope, $rootScope, $timeout, $cookies, indexService) {
         var vm = this;
         vm.title = 'index';
+        vm.pages = [];               
+        vm.selectInformationPage = selectInformationPage;        
+        vm.createPage = createPage;
+        vm.newPageName = 'New page';
+        vm.deletePage = deletePage;        
 
         initialize();
-       
-        vm.selectInformationPage = selectInformationPage;        
 
         function initialize() {
             getPages();            
@@ -18,23 +21,33 @@
         function getPages() {
             indexService.getPages().then(function (response) {
                 vm.pages = response.data;                
-                if (vm.pages.length !== 0) {
-                    vm.pageIndex = 0;
-                    vm.pageId = vm.pages[vm.pageIndex].PageId;
-                    vm.pageName = vm.pages[vm.pageIndex].Name;
-                    vm.pageContent = vm.pages[vm.pageIndex].Content;
-                    selectInformationPage(vm.pageIndex);
+                if (vm.pages.length !== 0) {                    
+                    vm.pageId = vm.pages[0].PageId;                    
+                    selectInformationPage(vm.pageId);
                     console.log(vm.pages);
                 }
             });
         }        
 
-        function selectInformationPage(pageIndex)
+        function selectInformationPage(pageId)
         {
-            vm.pageIndex = pageIndex;   
+            vm.pageId = pageId;   
             $timeout(function () {
-                $rootScope.$broadcast('pageSelected', vm.pageContent);
+                $rootScope.$broadcast('pageSelected', vm.pageId);
             });           
-        }                    
+        }
+
+        function createPage() {
+            indexService.createPage(vm.newPageName).then(function (response) {
+                getPages();
+                vm.newPageName = 'New page';
+            });
+        }
+
+        function deletePage(id) {
+            indexService.deletePage(id).then(function (response) {
+                getPages();                
+            });
+        }      
     }
 })(angular);

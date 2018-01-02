@@ -12,13 +12,20 @@ namespace oleksandrbachkai.Controllers
     [RoutePrefix("api/content")]
     public class ContentController : ApiController
     {
-        private DatabaseContext _context = new DatabaseContext();
+        private readonly DatabaseContext _context = new DatabaseContext();
 
         [Route("")]
         [HttpGet]
         public async Task<IHttpActionResult> GetPages()
         {
             return new OkNegotiatedContentResult<IEnumerable<Page>>(_context.Pages, this);
+        }
+
+        [Route("names")]
+        [HttpGet]
+        public async Task<IHttpActionResult> GetPageNames()
+        {
+            return new OkNegotiatedContentResult<IEnumerable<PageName>>(_context.Pages.Select(p => new PageName(){PageId = p.PageId,Name = p.Name}), this);
         }
 
         [Route("{id}")]
@@ -83,6 +90,23 @@ namespace oleksandrbachkai.Controllers
             _context.SaveChanges();
 
             return new OkNegotiatedContentResult<Page>(newPage, this);
+        }
+
+        [Route("{id}/content")]
+        [HttpPut]
+        public async Task<IHttpActionResult> UpdatePageContent(int id, [FromBody]string content)
+        {
+            var page = _context.Pages.FirstOrDefault(p => p.PageId == id);
+
+            if (page == null)
+            {
+                return NotFound();
+            }
+           
+            page.Content = content;
+            _context.SaveChanges();
+
+            return new OkNegotiatedContentResult<Page>(page, this);
         }
     }
 }

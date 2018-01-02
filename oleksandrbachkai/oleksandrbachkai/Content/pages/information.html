@@ -1,3 +1,5 @@
-﻿<h2>{{vm.title}}</h2>
-<textarea ui-tinymce="vm.tinymceOptions" ng-model="vm.tinymceModel"></textarea>
-{{vm.content}}
+﻿<div ng-if="!vm.edit" ng-bind-html="vm.renderHtml()"></div>
+<textarea ng-if="vm.edit" ui-tinymce="vm.tinymceOptions" ng-model="vm.content"></textarea>
+<br/>
+<button ng-if="!vm.edit" ng-click="vm.openEditor()">Edit</button>
+<button ng-if="vm.edit" ng-click="vm.updatePage()">Save</button>
