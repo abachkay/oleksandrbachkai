@@ -59,6 +59,7 @@
             ],
             toolbar1: 'insertfile undo redo | styleselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media | forecolor backcolor emoticons | drive',
             image_advtab: true,
+            visualblocks_default_state: true
         };
     }
 })(angular);
