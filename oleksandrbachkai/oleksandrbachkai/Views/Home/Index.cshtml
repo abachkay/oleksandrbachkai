@@ -49,8 +49,8 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">                            
-                            <li ng-repeat="page in vm.pages" >
-                                <a ui-sref="information" ng-click="vm.selectInformationPage(page.PageId)">{{page.Name}}</a>
+                            <li ng-repeat="(index, page) in vm.pages" >
+                                <a ui-sref="information({id: {{index + 1}}})" ng-click="vm.selectInformationPage(page.PageId)">{{page.Name}}</a>
                                 <button ng-click="vm.deletePage(page.PageId)">X</button>
                             </li>   
                             <li><input type="text" ng-model="vm.newPageName"/><button ng-click="vm.createPage()">+</button></li>
