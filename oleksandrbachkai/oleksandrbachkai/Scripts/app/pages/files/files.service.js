@@ -1,17 +1,20 @@
 ﻿(function (angular) {
     angular
         .module("app")
-        .factory("filesService", loginService);
-    loginService.$inject = ["$http"];
-    function loginService($http) {
+        .factory("filesService", filesService);
+    filesService.$inject = ["$http"];
+    function filesService($http) {
         return {
-            getInfo: getInfo            
-        }       
-        function getInfo() {
-            return $http({
-                method: "GET",
-                url: "/api/values"              
-            });
-        }      
+            postFile: postFile            
+        }
+
+        function postFile(data) {
+            $http.post('/api/content/file',
+                data,
+                {
+                    transformRequest: angular.identity,
+                    headers: { 'Content-Type': undefined }
+                });
+        }
     }
 })(angular);

@@ -287,7 +287,9 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\app\directives\file.directive.js" />
     <Content Include="Scripts\app\index.service.js" />
+    <Content Include="Scripts\app\pages\files\files.service.js" />
     <Content Include="Scripts\app\pages\information\information.service.js" />
     <Content Include="Scripts\libs\angular\angular-material-mocks.js" />
     <Content Include="Scripts\libs\angular\angular-material.js" />
@@ -296,6 +298,12 @@
     <Content Include="Scripts\app\pages\chat\chat.controller.js" />
     <Content Include="Scripts\app\pages\files\files.controller.js" />
     <Content Include="Scripts\app\pages\information\information.controller.js" />
+    <Content Include="client_secret.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="drive-dotnet-quickstart.json\Google.Apis.Auth.OAuth2.Responses.TokenResponse-user">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Scripts\libs\jquery\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\libs\jquery\jquery-3.2.1.js" />
     <Content Include="Scripts\libs\jquery\jquery-3.2.1.min.js" />
@@ -1430,6 +1438,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\oleksandrbachkai.Adapters\oleksandrbachkai.Adapters.csproj">
+      <Project>{EF84D9F1-E195-4464-AC80-18AF96FD9F9D}</Project>
+      <Name>oleksandrbachkai.Adapters</Name>
+    </ProjectReference>
     <ProjectReference Include="..\oleksandrbachkai.Models\oleksandrbachkai.Models.csproj">
       <Project>{A4DF8E67-FEB5-4CCB-B2A8-0283F5BE2572}</Project>
       <Name>oleksandrbachkai.Models</Name>

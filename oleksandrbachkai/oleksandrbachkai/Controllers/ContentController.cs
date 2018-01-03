@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Results;
 using System.Net;
+using System.Net.Http;
+using oleksandrbachkai.Adapters;
 
 namespace oleksandrbachkai.Controllers
 {
@@ -108,5 +110,30 @@ namespace oleksandrbachkai.Controllers
 
             return new OkNegotiatedContentResult<Page>(page, this);
         }
+
+        [Route("file")]
+        [HttpPost]
+        public async Task<IHttpActionResult> PostFileAsync()
+        {
+            if (!Request.Content.IsMimeMultipartContent())
+                throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+
+            var provider = new MultipartMemoryStreamProvider();
+            await Request.Content.ReadAsMultipartAsync(provider);
+            if (provider.Contents.Count != 1)
+            {
+                return BadRequest("Only uploading of 1 file is supported");
+            }
+            foreach (var file in provider.Contents)
+            {
+                var filename = file.Headers.ContentDisposition.FileName.Trim('\"');
+                var buffer = await file.ReadAsByteArrayAsync();
+
+                var driveAdapter = new GoogleDriveAdapter();
+                driveAdapter.UploadFile(filename, buffer);
+            }
+            return Ok();
+        }
+
     }
 }

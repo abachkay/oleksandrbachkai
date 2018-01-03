@@ -18,11 +18,12 @@ namespace oleksandrbachkai.Adapters
         public GoogleDriveAdapter()
         {
             UserCredential credential;
-
-            using (var stream = new FileStream("client_secret.json", FileMode.Open, FileAccess.Read))
+            var basePath = AppDomain.CurrentDomain.BaseDirectory;
+            using (var stream = new FileStream(Path.Combine(basePath, "client_secret.json"), FileMode.Open,
+                FileAccess.Read))
             {
-                string credPath = AppDomain.CurrentDomain.BaseDirectory;
-                credPath = Path.Combine(credPath, "drive-dotnet-quickstart.json");
+
+                var credPath = Path.Combine(basePath, "drive-dotnet-quickstart.json");
                 credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
                     GoogleClientSecrets.Load(stream).Secrets,
                     new[]
@@ -55,7 +56,7 @@ namespace oleksandrbachkai.Adapters
             return $"https://docs.google.com/document/d/{fileId}/edit?usp=sharing";            
         }
 
-        public string UploadFile(string filename)
+        public string UploadFile(string filename, byte[] bytes)
         {            
             const string folderId = "1kpz_Tw2iJzq4iIKLWfv0g-fx3zUNPE5m";
 
@@ -68,7 +69,7 @@ namespace oleksandrbachkai.Adapters
                 }                
             };
 
-            using (var stream = new FileStream(filename, FileMode.Open))
+            using (var stream = new MemoryStream(bytes))
             {
                 var request = _service.Files.Create(fileMetadata, stream, MimeTypeMap.GetMimeType(Path.GetExtension(filename)));                
                 request.Fields = "id";

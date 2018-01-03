@@ -10,7 +10,7 @@ namespace oleksandrbachkai.Adapters
 
             var adapter = new GoogleDriveAdapter();
 
-            adapter.UploadFile("C:\\Users\\Oleksandr_Bachkai\\Desktop\\Training\\Sources\\USGA Git configuration.pdf");
+            adapter.UploadFile("USGA Git configuration.pdf", System.IO.File.ReadAllBytes("C:\\Users\\Oleksandr_Bachkai\\Desktop\\Training\\Sources\\USGA Git configuration.pdf"));
 
             //foreach (var file in new GoogleDriveAdapter().GetAllFiles())
             //{
