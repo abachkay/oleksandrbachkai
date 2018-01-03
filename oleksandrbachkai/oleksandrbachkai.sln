@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "oleksandrbachkai", "oleksandrbachkai\oleksandrbachkai.csproj", "{6EBBA0B7-5376-4506-BC06-3DCB33180046}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "oleksandrbachkai.Models", "oleksandrbachkai.Models\oleksandrbachkai.Models.csproj", "{A4DF8E67-FEB5-4CCB-B2A8-0283F5BE2572}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "oleksandrbachkai.Adapters", "oleksandrbachkai.Adapters\oleksandrbachkai.Adapters.csproj", "{EF84D9F1-E195-4464-AC80-18AF96FD9F9D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{A4DF8E67-FEB5-4CCB-B2A8-0283F5BE2572}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4DF8E67-FEB5-4CCB-B2A8-0283F5BE2572}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4DF8E67-FEB5-4CCB-B2A8-0283F5BE2572}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF84D9F1-E195-4464-AC80-18AF96FD9F9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF84D9F1-E195-4464-AC80-18AF96FD9F9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF84D9F1-E195-4464-AC80-18AF96FD9F9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF84D9F1-E195-4464-AC80-18AF96FD9F9D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
