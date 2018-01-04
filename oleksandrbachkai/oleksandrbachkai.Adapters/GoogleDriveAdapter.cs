@@ -11,7 +11,7 @@ using File = Google.Apis.Drive.v3.Data.File;
 
 namespace oleksandrbachkai.Adapters
 {
-    public class GoogleDriveAdapter
+    public class GoogleDriveAdapter: IDisposable
     {
         private readonly DriveService _service;
 
@@ -90,5 +90,9 @@ namespace oleksandrbachkai.Adapters
             }
         }
 
+        public void Dispose()
+        {
+            _service?.Dispose();
+        }
     }
 }

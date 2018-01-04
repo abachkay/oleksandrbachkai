@@ -135,5 +135,11 @@ namespace oleksandrbachkai.Controllers
             return Ok();
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            _context?.Dispose();            
+
+            base.Dispose(disposing);
+        }
     }
 }

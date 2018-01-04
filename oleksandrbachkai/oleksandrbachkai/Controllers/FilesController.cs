@@ -2,7 +2,6 @@
 using System.Linq;
 using oleksandrbachkai.Adapters;
 using oleksandrbachkai.Models.Context;
-using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -165,6 +164,14 @@ namespace oleksandrbachkai.Controllers
             _driveAdapter.DeleteFile(file.DriveId);
 
             return Ok();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _context?.Dispose();
+            _driveAdapter?.Dispose();
+
+            base.Dispose(disposing);
         }
     }
 }
