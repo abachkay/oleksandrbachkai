@@ -1,1 +1,8 @@
 ﻿<h2>{{vm.title}}</h2>
+
+<br>
+<p ng-repeat="folder in vm.folders"><label ng-click="vm.selectFolder(folder.FolderId)"> <input type="radio" name="folder" value="male">{{folder.Name}}</label> <button ng-click="vm.deleteFolder(folder.FolderId)">X</button> </p>
+<p> <input type="text" ng-model="vm.newFolderName" /> <button ng-click="vm.createFolder()">Create folder</button> </p>
+<br/>
+<p  ng-repeat="file in vm.filesLinks"><a href="{{file.Url}}"> {{file.FileName}}</a> <button ng-click="vm.deleteFile(file.FileId)">X</button></p>
+<p><input type="file" file-model="vm.files" /><button ng-click="vm.uploadFile()">upload</button></p>
