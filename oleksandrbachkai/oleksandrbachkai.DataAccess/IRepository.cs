@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace oleksandrbachkai.DataAccess
 {
     public interface IRepository<T>: IDisposable
     {
-        IEnumerable<T> GetAll();
+        Task<IEnumerable<T>> GetAll();
 
-        T Get(int id);
+        Task<T> Get(int id);
 
-        void Insert(T data);
+        Task Insert(T data);
 
-        void Delete(int id);
+        Task Delete(int id);
 
-        void Update(int id, T data);
+        Task Update(int id, T data);
     }
 }

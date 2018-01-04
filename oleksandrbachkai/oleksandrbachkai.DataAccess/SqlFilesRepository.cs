@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using oleksandrbachkai.Models.Context;
+﻿using oleksandrbachkai.Models.Context;
 using oleksandrbachkai.Models.Entities;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Threading.Tasks;
 
 namespace oleksandrbachkai.DataAccess
 {
@@ -10,25 +11,25 @@ namespace oleksandrbachkai.DataAccess
     {
         private readonly DatabaseContext _context = new DatabaseContext();
 
-        public IEnumerable<File> GetAll()
+        public async Task<IEnumerable<File>> GetAll()
         {
-            return _context.Files;
+            return await _context.Files.ToListAsync();
         }
 
-        public File Get(int id)
+        public async Task<File> Get(int id)
         {
-            return _context.Files.FirstOrDefault(f => f.FileId == id);
+            return await _context.Files.FirstOrDefaultAsync(f => f.FileId == id);
         }
 
-        public void Insert(File data)
+        public async Task Insert(File data)
         {
             _context.Files.Add(data);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            var file = _context.Files.FirstOrDefault(f => f.FileId == id);
+            var file = await _context.Files.FirstOrDefaultAsync(f => f.FileId == id);
 
             if (file == null)
             {
@@ -36,12 +37,12 @@ namespace oleksandrbachkai.DataAccess
             }
 
             _context.Files.Remove(file);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void Update(int id, File data)
+        public async Task Update(int id, File data)
         {
-            var file = _context.Files.FirstOrDefault(f => f.FileId == id);
+            var file = await _context.Files.FirstOrDefaultAsync(f => f.FileId == id);
 
             if (file == null)
             {
@@ -52,7 +53,7 @@ namespace oleksandrbachkai.DataAccess
             file.FolderId = data.FolderId;
             file.FileName = data.FileName;
             file.Url = data.Url;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         public void Dispose()

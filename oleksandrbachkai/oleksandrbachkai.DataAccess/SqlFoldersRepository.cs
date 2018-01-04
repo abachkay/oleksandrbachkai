@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using oleksandrbachkai.Models.Context;
+﻿using oleksandrbachkai.Models.Context;
 using oleksandrbachkai.Models.Entities;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Threading.Tasks;
 
 namespace oleksandrbachkai.DataAccess
 {
@@ -10,25 +11,25 @@ namespace oleksandrbachkai.DataAccess
     {
         private readonly DatabaseContext _context = new DatabaseContext();
 
-        public IEnumerable<Folder> GetAll()
+        public async Task<IEnumerable<Folder>> GetAll()
         {
-            return _context.Folders;
+            return await _context.Folders.ToListAsync();
         }
 
-        public Folder Get(int id)
+        public async Task<Folder> Get(int id)
         {
-            return _context.Folders.FirstOrDefault(f => f.FolderId == id);
+            return await _context.Folders.FirstOrDefaultAsync(f => f.FolderId == id);
         }
 
-        public void Insert(Folder data)
+        public async Task Insert(Folder data)
         {
             _context.Folders.Add(data);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            var folder = _context.Folders.FirstOrDefault(f => f.FolderId == id);
+            var folder = await _context.Folders.FirstOrDefaultAsync(f => f.FolderId == id);
 
             if (folder == null)
             {
@@ -36,12 +37,12 @@ namespace oleksandrbachkai.DataAccess
             }
 
             _context.Folders.Remove(folder);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }        
        
-        public void Update(int id, Folder data)
+        public async Task Update(int id, Folder data)
         {
-            var folder = _context.Folders.FirstOrDefault(f => f.FolderId == id);
+            var folder = await _context.Folders.FirstOrDefaultAsync(f => f.FolderId == id);
 
             if (folder == null)
             {
@@ -49,7 +50,7 @@ namespace oleksandrbachkai.DataAccess
             }
 
             folder.Name = data.Name;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         public void Dispose()

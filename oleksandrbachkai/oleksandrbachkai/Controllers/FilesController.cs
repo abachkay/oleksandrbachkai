@@ -22,14 +22,14 @@ namespace oleksandrbachkai.Controllers
         [HttpGet]
         public async Task<IHttpActionResult> GetFolders()
         {
-            return new OkNegotiatedContentResult<IEnumerable<Folder>>(_foldersRepository.GetAll().ToList(), this);
+            return new OkNegotiatedContentResult<IEnumerable<Folder>>(await _foldersRepository.GetAll(), this);
         }
 
         [Route("folders")]
         [HttpPost]
         public async Task<IHttpActionResult> CreateFolder([FromBody]string folderName)
         {
-            _foldersRepository.Insert(new Folder()
+            await _foldersRepository.Insert(new Folder()
             {
                 Name = folderName
             });                        
@@ -41,7 +41,7 @@ namespace oleksandrbachkai.Controllers
         [HttpDelete]
         public async Task<IHttpActionResult> DeleteFolder(int folderId)
         {
-            var folder = _foldersRepository.Get(folderId);
+            var folder = await _foldersRepository.Get(folderId);
 
             if (folder == null)
             {
@@ -55,7 +55,7 @@ namespace oleksandrbachkai.Controllers
 
             try
             {
-                _foldersRepository.Delete(folderId);
+                await _foldersRepository.Delete(folderId);
             }
             catch
             {
@@ -71,7 +71,7 @@ namespace oleksandrbachkai.Controllers
         [HttpGet]
         public async Task<IHttpActionResult> GetFolderFiles(int folderId)
         {
-            var files = _foldersRepository.Get(folderId)?.Files;
+            var files = (await _foldersRepository.Get(folderId))?.Files;
 
             if (files == null || files.Count == 0)
             {
@@ -85,7 +85,7 @@ namespace oleksandrbachkai.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> CreateFileInFolderManual(int folderId, FileRequestModel fileModel)
         {
-            var folder = _foldersRepository.Get(folderId);
+            var folder = await _foldersRepository.Get(folderId);
 
             if (folder == null)
             {
@@ -100,7 +100,7 @@ namespace oleksandrbachkai.Controllers
                 FolderId = folderId
             };
 
-            _filesRepository.Insert(file);
+            await _filesRepository.Insert(file);
 
             return Ok();
         }
@@ -109,7 +109,7 @@ namespace oleksandrbachkai.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> CreateFileInFolder(int folderId)
         {
-            var folder = _foldersRepository.Get(folderId);
+            var folder = await _foldersRepository.Get(folderId);
 
             if (folder == null)
             {
@@ -145,7 +145,7 @@ namespace oleksandrbachkai.Controllers
                 FolderId = folderId
             };
 
-            _filesRepository.Insert(file);
+            await _filesRepository.Insert(file);
 
             return Ok();
         }
@@ -154,14 +154,14 @@ namespace oleksandrbachkai.Controllers
         [HttpDelete]
         public async Task<IHttpActionResult> DeleteFileInFolder(int folderId, int fileId)
         {
-            var file = _filesRepository.Get(fileId);
+            var file = await _filesRepository.Get(fileId);
 
             if (file == null)
             {
                 return NotFound();
             }
 
-            _filesRepository.Delete(fileId);
+            await _filesRepository.Delete(fileId);
 
             _driveAdapter.DeleteFile(file.DriveId);
 

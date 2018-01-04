@@ -1,8 +1,10 @@
 ﻿using System;
 using oleksandrbachkai.Models.Entities;
 using System.Collections.Generic;
+using System.Data.Entity;
 using oleksandrbachkai.Models.Context;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace oleksandrbachkai.DataAccess
 {
@@ -10,25 +12,25 @@ namespace oleksandrbachkai.DataAccess
     {
         private readonly DatabaseContext _context = new DatabaseContext();
 
-        public IEnumerable<Page> GetAll()
+        public async Task<IEnumerable<Page>> GetAll()
         {
-            return _context.Pages;
+            return await _context.Pages.ToListAsync();
         }
 
-        public Page Get(int id)
+        public async Task<Page> Get(int id)
         {
-            return _context.Pages.FirstOrDefault(p => p.PageId == id);            
+            return await _context.Pages.FirstOrDefaultAsync(p => p.PageId == id);            
         }
 
-        public void Insert(Page data)
+        public async Task Insert(Page data)
         {
             _context.Pages.Add(data);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            var page = _context.Pages.FirstOrDefault(p => p.PageId == id);
+            var page = await _context.Pages.FirstOrDefaultAsync(p => p.PageId == id);
 
             if (page == null)
             {
@@ -36,12 +38,12 @@ namespace oleksandrbachkai.DataAccess
             }
 
             _context.Pages.Remove(page);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void Update(int id, Page data)
+        public async Task Update(int id, Page data)
         {
-            var page = _context.Pages.FirstOrDefault(p => p.PageId == id);
+            var page = await _context.Pages.FirstOrDefaultAsync(p => p.PageId == id);
 
             if (page == null)
             {
@@ -50,17 +52,17 @@ namespace oleksandrbachkai.DataAccess
 
             page.Name = data.Name;
             page.Content = data.Content;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
         
-        public IEnumerable<PageName> GetPageNames()
+        public async Task<IEnumerable<PageName>> GetPageNames()
         {
-            return _context.Pages.Select(p => new PageName() {PageId = p.PageId, Name = p.Name});
+            return (await _context.Pages.ToListAsync()).Select(p => new PageName() {PageId = p.PageId, Name = p.Name});
         }
 
-        public void UpdatePageContent(int id, string content)
+        public async Task UpdatePageContent(int id, string content)
         {
-            var page = _context.Pages.FirstOrDefault(p => p.PageId == id);
+            var page = await _context.Pages.FirstOrDefaultAsync(p => p.PageId == id);
 
             if (page == null)
             {
@@ -68,7 +70,7 @@ namespace oleksandrbachkai.DataAccess
             }
 
             page.Content = content;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         public void Dispose()

@@ -1,12 +1,13 @@
 ﻿using oleksandrbachkai.Models.Entities;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace oleksandrbachkai.DataAccess
 {
     public interface IPagesRepository: IRepository<Page>
     {
-        IEnumerable<PageName> GetPageNames();
+        Task<IEnumerable<PageName>> GetPageNames();
 
-        void UpdatePageContent(int id, string content);
+        Task UpdatePageContent(int id, string content);
     }
 }

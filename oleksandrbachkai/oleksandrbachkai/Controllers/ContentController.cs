@@ -1,15 +1,11 @@
-﻿using System;
+﻿using oleksandrbachkai.DataAccess;
 using oleksandrbachkai.Models.Context;
 using oleksandrbachkai.Models.Entities;
 using System.Collections.Generic;
-using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Results;
-using System.Net;
-using System.Net.Http;
-using oleksandrbachkai.Adapters;
-using oleksandrbachkai.DataAccess;
 
 namespace oleksandrbachkai.Controllers
 {
@@ -23,14 +19,14 @@ namespace oleksandrbachkai.Controllers
         [HttpGet]
         public async Task<IHttpActionResult> GetPages()
         {
-            return new OkNegotiatedContentResult<IEnumerable<Page>>(_pagesRepository.GetAll(), this);
+            return new OkNegotiatedContentResult<IEnumerable<Page>>(await _pagesRepository.GetAll(), this);
         }       
 
         [Route("{id}")]
         [HttpGet]
         public async Task<IHttpActionResult> GetPage(int id)
         {
-            var page = _pagesRepository.Get(id);
+            var page = await _pagesRepository.Get(id);
 
             if (page == null)
             {
@@ -44,12 +40,12 @@ namespace oleksandrbachkai.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> InsertPage(Page page)
         {
-            if (! ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _pagesRepository.Insert(page);
+            await _pagesRepository.Insert(page);
 
             return Ok();
         }
@@ -60,7 +56,7 @@ namespace oleksandrbachkai.Controllers
         {
             try
             {
-                _pagesRepository.Delete(id);
+                await _pagesRepository.Delete(id);
             }
             catch
             {
@@ -76,7 +72,7 @@ namespace oleksandrbachkai.Controllers
         {
             try
             {
-                _pagesRepository.Update(id, newPage);
+                await _pagesRepository.Update(id, newPage);
 
             }
             catch
@@ -91,7 +87,7 @@ namespace oleksandrbachkai.Controllers
         [HttpGet]
         public async Task<IHttpActionResult> GetPageNames()
         {
-            return new OkNegotiatedContentResult<IEnumerable<PageName>>(_pagesRepository.GetPageNames(), this);
+            return new OkNegotiatedContentResult<IEnumerable<PageName>>(await _pagesRepository.GetPageNames(), this);
         }
 
         [Route("{id}/content")]
@@ -100,7 +96,7 @@ namespace oleksandrbachkai.Controllers
         {
             try
             {
-                _pagesRepository.UpdatePageContent(id, content);
+                await _pagesRepository.UpdatePageContent(id, content);
 
             }
             catch
