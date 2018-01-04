@@ -53,7 +53,7 @@ namespace oleksandrbachkai.Adapters
 
         public static string GetUrlByFileId(string fileId)
         {
-            return $"https://docs.google.com/document/d/{fileId}/edit?usp=sharing";            
+            return $"https://docs.google.com/file/d/{fileId}/view?usp=sharing";            
         }
 
         public string UploadFile(string filename, byte[] bytes)
@@ -78,5 +78,17 @@ namespace oleksandrbachkai.Adapters
                 return request.ResponseBody.Id;
             }
         }
+
+        public void DeleteFile(string fileId)
+        {
+            try
+            {
+                _service.Files.Delete(fileId).Execute();
+            }
+            catch
+            {
+            }
+        }
+
     }
 }

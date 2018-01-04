@@ -10,5 +10,7 @@ namespace oleksandrbachkai.Models.Context
 
         }
         public DbSet<Page> Pages { get; set; }
+        public DbSet<Folder> Folders { get; set; }
+        public DbSet<File> Files { get; set; }
     }
 }
