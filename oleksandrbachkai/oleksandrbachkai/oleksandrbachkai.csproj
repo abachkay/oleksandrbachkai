@@ -1443,6 +1443,10 @@
       <Project>{EF84D9F1-E195-4464-AC80-18AF96FD9F9D}</Project>
       <Name>oleksandrbachkai.Adapters</Name>
     </ProjectReference>
+    <ProjectReference Include="..\oleksandrbachkai.DataAccess\oleksandrbachkai.DataAccess.csproj">
+      <Project>{0780D9A4-73A0-4170-811D-48B9A7A40824}</Project>
+      <Name>oleksandrbachkai.DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\oleksandrbachkai.Models\oleksandrbachkai.Models.csproj">
       <Project>{A4DF8E67-FEB5-4CCB-B2A8-0283F5BE2572}</Project>
       <Name>oleksandrbachkai.Models</Name>

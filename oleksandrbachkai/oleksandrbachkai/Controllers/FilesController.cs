@@ -1,39 +1,38 @@
-﻿using System.Collections.Generic;
+﻿using oleksandrbachkai.Adapters;
+using oleksandrbachkai.DataAccess;
+using oleksandrbachkai.Models;
+using oleksandrbachkai.Models.Entities;
+using System.Collections.Generic;
 using System.Linq;
-using oleksandrbachkai.Adapters;
-using oleksandrbachkai.Models.Context;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Results;
-using oleksandrbachkai.Models;
-using oleksandrbachkai.Models.Entities;
 
 namespace oleksandrbachkai.Controllers
 {
     [RoutePrefix("api/files")]
     public class FilesController : ApiController
-    {
-        private readonly DatabaseContext _context = new DatabaseContext();
+    {        
         private readonly GoogleDriveAdapter _driveAdapter = new GoogleDriveAdapter();
+        private readonly IFoldersRepository _foldersRepository = new SqlFoldersRepository();
+        private readonly IFilesRepository _filesRepository = new SqlFilesRepository();
 
         [Route("folders")]
         [HttpGet]
         public async Task<IHttpActionResult> GetFolders()
         {
-            return new OkNegotiatedContentResult<IEnumerable<Folder>>(_context.Folders.ToList(), this);
+            return new OkNegotiatedContentResult<IEnumerable<Folder>>(_foldersRepository.GetAll().ToList(), this);
         }
 
         [Route("folders")]
         [HttpPost]
         public async Task<IHttpActionResult> CreateFolder([FromBody]string folderName)
         {
-            _context.Folders.Add(new Folder()
+            _foldersRepository.Insert(new Folder()
             {
                 Name = folderName
-            });
-
-            _context.SaveChanges();
+            });                        
 
             return Ok();
         }
@@ -42,7 +41,7 @@ namespace oleksandrbachkai.Controllers
         [HttpDelete]
         public async Task<IHttpActionResult> DeleteFolder(int folderId)
         {
-            var folder = _context.Folders.FirstOrDefault(f => f.FolderId == folderId);
+            var folder = _foldersRepository.Get(folderId);
 
             if (folder == null)
             {
@@ -53,11 +52,17 @@ namespace oleksandrbachkai.Controllers
             {
                 _driveAdapter.DeleteFile(file.DriveId);
             }
-            _context.Files.RemoveRange(folder.Files);            
 
-            _context.Folders.Remove(folder);
-            _context.SaveChanges();
-
+            try
+            {
+                _foldersRepository.Delete(folderId);
+            }
+            catch
+            {
+                return NotFound();
+                
+            }
+            
             return Ok();
         }
 
@@ -66,7 +71,7 @@ namespace oleksandrbachkai.Controllers
         [HttpGet]
         public async Task<IHttpActionResult> GetFolderFiles(int folderId)
         {
-            var files = _context.Folders.FirstOrDefault(f => f.FolderId == folderId)?.Files;
+            var files = _foldersRepository.Get(folderId)?.Files;
 
             if (files == null || files.Count == 0)
             {
@@ -80,7 +85,7 @@ namespace oleksandrbachkai.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> CreateFileInFolderManual(int folderId, FileRequestModel fileModel)
         {
-            var folder = _context.Folders.FirstOrDefault(f => f.FolderId == folderId);
+            var folder = _foldersRepository.Get(folderId);
 
             if (folder == null)
             {
@@ -95,8 +100,7 @@ namespace oleksandrbachkai.Controllers
                 FolderId = folderId
             };
 
-            _context.Files.Add(file);
-            _context.SaveChanges();
+            _filesRepository.Insert(file);
 
             return Ok();
         }
@@ -105,7 +109,7 @@ namespace oleksandrbachkai.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> CreateFileInFolder(int folderId)
         {
-            var folder = _context.Folders.FirstOrDefault(f => f.FolderId == folderId);
+            var folder = _foldersRepository.Get(folderId);
 
             if (folder == null)
             {
@@ -141,8 +145,7 @@ namespace oleksandrbachkai.Controllers
                 FolderId = folderId
             };
 
-            _context.Files.Add(file);
-            _context.SaveChanges();
+            _filesRepository.Insert(file);
 
             return Ok();
         }
@@ -151,15 +154,14 @@ namespace oleksandrbachkai.Controllers
         [HttpDelete]
         public async Task<IHttpActionResult> DeleteFileInFolder(int folderId, int fileId)
         {
-            var file = _context.Folders.FirstOrDefault(f => f.FolderId == folderId)?.Files.FirstOrDefault(f => f.FileId == fileId);
+            var file = _filesRepository.Get(fileId);
 
             if (file == null)
             {
                 return NotFound();
             }
 
-            _context.Files.Remove(file);
-            _context.SaveChanges();
+            _filesRepository.Delete(fileId);
 
             _driveAdapter.DeleteFile(file.DriveId);
 
@@ -168,7 +170,8 @@ namespace oleksandrbachkai.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            _context?.Dispose();
+            _foldersRepository?.Dispose();
+            _filesRepository?.Dispose();
             _driveAdapter?.Dispose();
 
             base.Dispose(disposing);
