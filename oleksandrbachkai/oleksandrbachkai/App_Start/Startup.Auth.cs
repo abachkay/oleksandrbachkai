@@ -1,12 +1,16 @@
 ﻿using System;
+using System.Security.Claims;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.Facebook;
+using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
 using oleksandrbachkai.Providers;
 using oleksandrbachkai.Models;
 using oleksandrbachkai.App_Start;
+using System.Threading.Tasks;
 
 namespace oleksandrbachkai
 {
@@ -25,7 +29,10 @@ namespace oleksandrbachkai
 
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
-            app.UseCookieAuthentication(new CookieAuthenticationOptions());
+            app.UseCookieAuthentication(new CookieAuthenticationOptions()
+            {
+                AuthenticationType = "ApplicationCookie",                
+            });
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // Configure the application for OAuth based flow
@@ -52,15 +59,26 @@ namespace oleksandrbachkai
             //    consumerKey: "",
             //    consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //    appId: "",
-            //    appSecret: "");
-
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            //app.UseFacebookAuthentication(new FacebookAuthenticationOptions()
             //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            //    AppId = "",
+            //    AppSecret = "",
+            //    Provider = new FacebookAuthenticationProvider
+            //    {
+            //        OnAuthenticated = context =>
+            //        {
+            //            context.Identity.AddClaim(
+            //                new Claim("FacebookAccessToken", context.AccessToken));
+            //            return Task.FromResult(true);
+            //        }
+            //    }
+            //});                                 
+
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "908115096918-6gmmbad1ls24vooff69g1pqqioflod41.apps.googleusercontent.com",
+                ClientSecret = "QuKVI-Ze4HEldjJbjpM7VRid",                             
+            });
         }
     }
 }

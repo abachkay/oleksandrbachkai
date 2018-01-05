@@ -21,16 +21,16 @@
 
     <script src="~/Scripts/app/app.module.js"></script>
     <script src="~/Scripts/app/app.config.js"></script>
-    <script src="~/Scripts/app/index.controller.js"></script>
-    <script src="~/Scripts/app/index.service.js"></script>
-    <script src="~/Scripts/app/pages/welcome/welcome.controller.js"></script>
-    <script src="~/Scripts/app/pages/chat/chat.controller.js"></script>
-    <script src="~/Scripts/app/pages/information/information.controller.js"></script>
-    <script src="~/Scripts/app/pages/information/information.service.js"></script>
-    <script src="~/Scripts/app/pages/files/files.controller.js"></script>
-    <script src="~/Scripts/app/pages/files/files.service.js"></script>
     <script src="~/Scripts/app/directives/file.directive.js"></script>
-
+    <script src="~/Scripts/app/controllers/chat.controller.js"></script>
+    <script src="~/Scripts/app/controllers/files.controller.js"></script>
+    <script src="~/Scripts/app/controllers/index.controller.js"></script>
+    <script src="~/Scripts/app/controllers/information.controller.js"></script>
+    <script src="~/Scripts/app/controllers/login.controller.js"></script>
+    <script src="~/Scripts/app/controllers/welcome.controller.js"></script>
+    <script src="~/Scripts/app/services/files.service.js"></script>    
+    <script src="~/Scripts/app/services/information.service.js"></script>
+    <script src="~/Scripts/app/services/login.service.js"></script>
 </head>
 <body ng-app="app" ng-controller="indexController as vm">
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -44,29 +44,30 @@
                 <a ui-sref="welcome">Welcome</a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">                                        
+                <ul class="nav navbar-nav">
                     <li class="dropdown">
                         <a class="dropdown-toggle" href data-toggle="dropdown">
                             Information
                             <span class="caret"></span>
                         </a>
-                        <ul class="dropdown-menu">                            
-                            <li ng-repeat="(index, page) in vm.pages" >
+                        <ul class="dropdown-menu">
+                            <li ng-repeat="(index, page) in vm.pages">
                                 <a ui-sref="information({id: {{index + 1}}})" ng-click="vm.selectInformationPage(page.PageId)">{{page.Name}}</a>
-                                <button ng-click="vm.deletePage(page.PageId)">X</button>
-                            </li>   
-                            <li><input type="text" ng-model="vm.newPageName"/><button ng-click="vm.createPage()">+</button></li>
+                                <button ng-click="vm.deletePage(page.PageId)" ng-if="vm.UserEmail && vm.isUserAdmin">X</button>
+                            </li>
+                            <li ng-if="vm.UserEmail && vm.isUserAdmin"><input type="text" ng-model="vm.newPageName" /><button ng-click="vm.createPage()">+</button></li>
                         </ul>
                     </li>
-                    <li><a ui-sref="files">Files</a></li>
-                    <li><a ui-sref="chat">Chat</a></li>
+                    <li><a ui-sref="files" ng-if="vm.UserEmail && vm.isUserAdmin">Files</a></li>
+                    <li><a ui-sref="chat" ng-if="vm.UserEmail">Chat</a></li>
+                    <li><a ng-if="!vm.UserEmail" ui-sref="login">Login</a></li>
+                    <li><a ng-if="vm.UserEmail" href ng-click="vm.logout()">Logout</a></li>
                 </ul>
             </div>
         </div>
     </div>
-<div class="container body-content">       
-    @*<iframe src="https://drive.google.com/embeddedfolderview?id=1WjYs7yqsVR4A5hx8AkLwe41I0fwnEXOa#list" style="width:100%; height:600px; border:0;"></iframe>*@
-    <ui-view></ui-view>
-</div>
+    <div class="container body-content">     
+        <ui-view></ui-view>
+    </div>
 </body>
 </html>

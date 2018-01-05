@@ -12,6 +12,8 @@ using System.Web.Http.Results;
 namespace oleksandrbachkai.Controllers
 {
     [RoutePrefix("api/files")]
+    [Authorize]
+    [Authorize(Roles = "Administrator")]
     public class FilesController : ApiController
     {        
         private readonly GoogleDriveAdapter _driveAdapter = new GoogleDriveAdapter();

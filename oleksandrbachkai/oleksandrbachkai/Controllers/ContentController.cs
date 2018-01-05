@@ -10,6 +10,7 @@ using System.Web.Http.Results;
 namespace oleksandrbachkai.Controllers
 {
     [RoutePrefix("api/content")]
+    [Authorize(Roles = "Administrator")]
     public class ContentController : ApiController
     {
         private readonly DatabaseContext _context = new DatabaseContext();
@@ -17,6 +18,7 @@ namespace oleksandrbachkai.Controllers
 
         [Route("")]
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IHttpActionResult> GetPages()
         {
             return new OkNegotiatedContentResult<IEnumerable<Page>>(await _pagesRepository.GetAll(), this);
@@ -24,6 +26,7 @@ namespace oleksandrbachkai.Controllers
 
         [Route("{id}")]
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IHttpActionResult> GetPage(int id)
         {
             var page = await _pagesRepository.Get(id);
@@ -85,6 +88,7 @@ namespace oleksandrbachkai.Controllers
 
         [Route("names")]
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IHttpActionResult> GetPageNames()
         {
             return new OkNegotiatedContentResult<IEnumerable<PageName>>(await _pagesRepository.GetPageNames(), this);

@@ -29,6 +29,8 @@ namespace oleksandrbachkai.Models
     {
         public string Email { get; set; }
 
+        public bool IsAdministrator { get; set; }
+
         public bool HasRegistered { get; set; }
 
         public string LoginProvider { get; set; }
