@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -58,6 +60,18 @@ namespace oleksandrbachkai.Providers
                 context.AdditionalResponseParameters.Add(property.Key, property.Value);
             }
 
+            foreach (var claim in context.Identity.Claims)
+            {
+                if (claim.Type == ClaimsIdentity.DefaultNameClaimType)
+                {
+                    context.AdditionalResponseParameters.Add("username", claim.Value);
+                }
+                else if (claim.Type == ClaimTypes.Email)
+                {
+                    context.AdditionalResponseParameters.Add("email", claim.Value);
+                }
+            }
+
             return Task.FromResult<object>(null);
         }
 
@@ -95,5 +109,19 @@ namespace oleksandrbachkai.Providers
             };
             return new AuthenticationProperties(data);
         }
+
+        public override Task AuthorizationEndpointResponse(OAuthAuthorizationEndpointResponseContext context)
+        {            
+            foreach (var claim in context.Identity.Claims)
+            {
+                if (claim.Type == ClaimTypes.Email)
+                {
+                    context.AdditionalResponseParameters.Add("email", claim.Value);
+                }
+            }            
+
+            return base.AuthorizationEndpointResponse(context);
+        }
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -61,6 +62,7 @@ namespace oleksandrbachkai.Controllers
 
             return new UserInfoViewModel
             {
+                IsAdministrator = User.IsInRole("Administrator"),
                 Email = User.Identity.GetUserName(),
                 HasRegistered = externalLogin == null,
                 LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
@@ -270,7 +272,11 @@ namespace oleksandrbachkai.Controllers
             }
             else
             {
-                IEnumerable<Claim> claims = externalLogin.GetClaims();
+                ICollection<Claim> claims = externalLogin.GetClaims();
+                if (claims.All(c => c.Type != "email"))
+                {
+                    claims.Add(new Claim(ClaimTypes.Email, (await Authentication.GetExternalLoginInfoAsync()).Email));
+                }
                 ClaimsIdentity identity = new ClaimsIdentity(claims, OAuthDefaults.AuthenticationType);
                 Authentication.SignIn(identity);
             }

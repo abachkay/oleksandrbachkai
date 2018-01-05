@@ -13,7 +13,7 @@
                 controller: 'loginController',
                 controllerAs: 'vm'
             }).state('information', {
-                url: '/information',
+                url: '/information/{id}',
                 templateUrl: '/Content/pages/information.html',
                 controller: 'informationController',
                 controllerAs: 'vm'
