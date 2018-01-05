@@ -12,7 +12,8 @@
             getExternalLogins: getExternalLogins,
             registerExternal: registerExternal,
             logout: logout,
-            getUserInfo: getUserInfo
+            getUserInfo: getUserInfo,
+            confirmEmail: confirmEmail
     }       
 
         function login(email, password) {
@@ -65,6 +66,13 @@
                 method: "GET",
                 url: "/api/Account/UserInfo",
                 headers: { "Authorization": "Bearer " + $cookies.get("access_token") }
+            });
+        }
+
+        function confirmEmail(userId, code) {
+            return $http({
+                method: "GET",
+                url: "/api/Account/ConfirmEmail?userId=" + userId + "&code=" + code  
             });
         }
     }

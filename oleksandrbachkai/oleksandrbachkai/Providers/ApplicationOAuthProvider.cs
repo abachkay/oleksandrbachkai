@@ -42,6 +42,12 @@ namespace oleksandrbachkai.Providers
                 return;
             }
 
+            if (!user.EmailConfirmed)
+            {
+                context.SetError("invalid_grant", "The user email is not confirmed.");
+                return;
+            }
+
             ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,
                OAuthDefaults.AuthenticationType);
             ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,
@@ -59,19 +65,6 @@ namespace oleksandrbachkai.Providers
             {
                 context.AdditionalResponseParameters.Add(property.Key, property.Value);
             }
-
-            foreach (var claim in context.Identity.Claims)
-            {
-                if (claim.Type == ClaimsIdentity.DefaultNameClaimType)
-                {
-                    context.AdditionalResponseParameters.Add("username", claim.Value);
-                }
-                else if (claim.Type == ClaimTypes.Email)
-                {
-                    context.AdditionalResponseParameters.Add("email", claim.Value);
-                }
-            }
-
             return Task.FromResult<object>(null);
         }
 

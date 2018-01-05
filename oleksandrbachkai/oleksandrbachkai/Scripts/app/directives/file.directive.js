@@ -1,11 +1,11 @@
 ﻿(function (angular) {
     angular
         .module("app")
-        .directive('fileModel', ['$parse', function($parse) {
+        .directive("fileModel", ["$parse", function($parse) {
             return {
-                restrict: 'A',
+                restrict: "A",
                 link: function(scope, element, attrs) {
-                    element.bind('change',
+                    element.bind("change",
                         function() {
                             $parse(attrs.fileModel).assign(scope, element[0].files);
                             scope.$apply();

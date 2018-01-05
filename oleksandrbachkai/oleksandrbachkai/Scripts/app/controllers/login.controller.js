@@ -5,18 +5,15 @@
     loginController.$inject = ["$scope", "$cookies", "loginService", "$location"];
     function loginController($scope, $cookies, loginService, $location) {
         var vm = this;
-
         vm.loginEmail = "";
         vm.loginPassword = "";
         vm.login = login;
         vm.loginErrors = null;
-
         vm.registerEmail = "";
         vm.registerPassword = "";
         vm.registerPasswordConfirm = "";
         vm.register = register;
         vm.registerErrors = null;
-
         vm.loginGoogle = loginGoogle;
 
         function login() {           
@@ -39,10 +36,7 @@
 
         function register() {
             loginService.register(vm.registerEmail, vm.registerPassword, vm.registerPasswordConfirm).then(function (response) {                
-                vm.registerErrors = null;
-                loginService.login(vm.registerEmail, vm.registerPassword).then(function(response) {
-                    loginComplete(response.data);
-                });
+                vm.registerErrors = null;                
             }, function (response) {
                 vm.registerErrorsArray = [];
                 vm.registerErrors = "";

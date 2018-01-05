@@ -2,17 +2,17 @@
     angular
         .module("app")
         .controller("informationController", informationController);
-    informationController.$inject = ['$scope', '$rootScope', '$cookies', '$sce', 'informationService'];
+    informationController.$inject = ["$scope", "$rootScope", "$cookies", "$sce", "informationService"];
     function informationController($scope, $rootScope, $cookies, $sce, informationService) {
         var vm = this;
-        vm.title = 'info';
-        vm.content = '';
+        vm.title = "info";
+        vm.content = "";
         vm.pageId = null;
         vm.updatePage = updatePage;
         vm.edit = false;
         vm.openEditor = openEditor;
 
-        $scope.$on('pageSelected', function (event, pageId) {
+        $scope.$on("pageSelected", function (event, pageId) {
             getPage(pageId);
         });
 
@@ -50,13 +50,13 @@
             },
             branding: false,
             plugins: [
-                'advlist autolink lists link image charmap print preview hr anchor pagebreak',
-                'searchreplace wordcount visualblocks visualchars code fullscreen',
-                'insertdatetime media nonbreaking save table contextmenu directionality',
-                'emoticons template paste textcolor colorpicker textpattern imagetools',
-                'drive'
+                "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+                "searchreplace wordcount visualblocks visualchars code fullscreen",
+                "insertdatetime media nonbreaking save table contextmenu directionality",
+                "emoticons template paste textcolor colorpicker textpattern imagetools",
+                "drive"
             ],
-            toolbar1: 'insertfile undo redo | styleselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media | forecolor backcolor emoticons | drive',
+            toolbar1: "insertfile undo redo | styleselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media | forecolor backcolor emoticons | drive",
             image_advtab: true,
             visualblocks_default_state: true
         };

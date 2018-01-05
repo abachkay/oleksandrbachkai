@@ -1453,6 +1453,10 @@
       <Project>{A4DF8E67-FEB5-4CCB-B2A8-0283F5BE2572}</Project>
       <Name>oleksandrbachkai.Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\oleksandrbachkai.Services\oleksandrbachkai.Services.csproj">
+      <Project>{7FBEAB10-AAD8-437B-8E6C-C10FD5D65796}</Project>
+      <Name>oleksandrbachkai.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "oleksandrbachkai.Adapters",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "oleksandrbachkai.DataAccess", "oleksandrbachkai.DataAccess\oleksandrbachkai.DataAccess.csproj", "{0780D9A4-73A0-4170-811D-48B9A7A40824}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "oleksandrbachkai.Services", "oleksandrbachkai.Services\oleksandrbachkai.Services.csproj", "{7FBEAB10-AAD8-437B-8E6C-C10FD5D65796}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{0780D9A4-73A0-4170-811D-48B9A7A40824}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0780D9A4-73A0-4170-811D-48B9A7A40824}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0780D9A4-73A0-4170-811D-48B9A7A40824}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FBEAB10-AAD8-437B-8E6C-C10FD5D65796}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FBEAB10-AAD8-437B-8E6C-C10FD5D65796}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FBEAB10-AAD8-437B-8E6C-C10FD5D65796}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FBEAB10-AAD8-437B-8E6C-C10FD5D65796}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

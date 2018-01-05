@@ -5,6 +5,7 @@
     indexController.$inject = ["$scope", "$rootScope", "$timeout", "$cookies", "loginService", "informationService", "$location"];
     function indexController($scope, $rootScope, $timeout, $cookies, loginService, informationService, $location) {
         var vm = this;
+        vm.title = "index";   
         vm.title = "index";
         vm.pages = [];               
         vm.selectInformationPage = selectInformationPage;        
@@ -73,10 +74,10 @@
         }
 
         $scope.$on("loggedIn", function () { getUserInfo(); });
-
-        vm.title = "index";      
+           
         var externalAuthParams = {};
-        var pairs = $location.url().split(/#|&/);
+        var accountConfirmationParams = {};
+        var pairs = $location.url().split(/#|&|\?/);
         for (var i = 0; i < pairs.length; i++) {
             var keyValue = pairs[i].split("=");
             if (keyValue.length == 2) {
@@ -84,7 +85,11 @@
                     externalAuthParams.token = keyValue[1];
                 } else if (keyValue[0] == "email") {
                     externalAuthParams.email = keyValue[1];               
-                }                
+                } else if (keyValue[0] == "userId") {
+                    accountConfirmationParams.userId = keyValue[1];
+                } else if (keyValue[0] == "confirmationCode") {
+                    accountConfirmationParams.confirmationCode = keyValue[1];
+                }                                          
             }
         }
         if (externalAuthParams.token && externalAuthParams.email) {
@@ -99,9 +104,15 @@
                     });
                 });
         } else if (externalAuthParams.token) {
-            $cookies.put("access_token", externalAuthParams.token);            
+            $cookies.put("access_token", externalAuthParams.token);
             $location.path("/");
             getUserInfo();
-        }                      
+        }        
+        if (accountConfirmationParams.userId && accountConfirmationParams.confirmationCode) {
+            loginService.confirmEmail(accountConfirmationParams.userId, accountConfirmationParams.confirmationCode)
+                .then(function () {
+                    $location.url("/login");                    
+                });
+        }
     }
 })(angular);
