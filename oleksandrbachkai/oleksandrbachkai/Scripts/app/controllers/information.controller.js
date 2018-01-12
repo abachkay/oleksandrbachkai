@@ -2,20 +2,19 @@
     angular
         .module("app")
         .controller("informationController", informationController);
-    informationController.$inject = ["$scope", "$rootScope", "$cookies", "$sce", "informationService"];
-    function informationController($scope, $rootScope, $cookies, $sce, informationService) {
+    informationController.$inject = ["$scope", "$rootScope", "$cookies", "$sce", "informationService", "$timeout"];
+    function informationController($scope, $rootScope, $cookies, $sce, informationService, $timeout) {
         var vm = this;
         vm.title = "info";
-        vm.content = "";
-        vm.pageId = null;
+        vm.content = "";        
         vm.updatePage = updatePage;
         vm.edit = false;
-        vm.openEditor = openEditor;
+        vm.openEditor = openEditor;      
 
         $scope.$on("pageSelected", function (event, pageId) {
             getPage(pageId);
-        });
-
+        });     
+                
         function openEditor() {
             vm.edit = true;
         }
@@ -26,7 +25,7 @@
                 vm.content = response.data.Content;
                 vm.renderHtml();
             });
-        }
+        }       
 
         vm.renderHtml = function () {
             return $sce.trustAsHtml(vm.content);

@@ -2,8 +2,8 @@
     angular
         .module("app")
         .controller("indexController", indexController);
-    indexController.$inject = ["$scope", "$rootScope", "$timeout", "$cookies", "loginService", "informationService", "$location"];
-    function indexController($scope, $rootScope, $timeout, $cookies, loginService, informationService, $location) {
+    indexController.$inject = ["$scope", "$rootScope", "$timeout", "$cookies", "loginService", "informationService", "$location", "$state"];
+    function indexController($scope, $rootScope, $timeout, $cookies, loginService, informationService, $location, $state) {
         var vm = this;
         vm.title = "index";   
         vm.title = "index";
@@ -17,29 +17,38 @@
         vm.isUserAdmin = false;
         vm.getUserInfo = getUserInfo;
 
-        initialize();
+        initialize();        
 
         function initialize() {
             getUserInfo();
-            getPages();  
+            getPages();
+            selectInformationPage();
         }
-        
-        function getPages() {
-            informationService.getPages().then(function (response) {
-                vm.pages = response.data;                
-                if (vm.pages.length !== 0) {                    
-                    vm.pageId = vm.pages[0].PageId;                    
-                    selectInformationPage(vm.pageId);                    
-                }
-            });
-        }        
 
-        function selectInformationPage(pageId)
-        {
-            vm.pageId = pageId;   
+        function getPages() {
+            informationService.getPages().then(function(response) {
+                vm.pages = response.data.filter(function(d) { return d.PageId !== 3 });                
+            });
+        }
+
+        function selectInformationPage(pageId) {
             $timeout(function () {
+                if (pageId) {
+                    if (pageId === 3) {
+                        $state.go("welcome");
+                    } else {
+                        $state.go("information({pageId: " + pageId + "})");
+                    }                    
+                }
+                var pathParts = $location.path().split("/");
+                if ($location.path() === "/") {
+                    vm.pageId = 3;
+                } else if (pathParts.length === 3 && pathParts[1].toLowerCase() === "information") {
+                    vm.pageId = pathParts[2];
+                }
+                console.log(vm.pageId);
                 $rootScope.$broadcast("pageSelected", vm.pageId);
-            });           
+            });
         }
 
         function createPage() {

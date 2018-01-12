@@ -5,7 +5,7 @@
             $stateProvider.state("welcome", {
                 url: "/",
                 templateUrl: "/Content/pages/welcome.html",
-                controller: "welcomeController",
+                controller: "informationController",
                 controllerAs: "vm"
             }).state("login", {
                 url: "/login",
@@ -13,7 +13,7 @@
                 controller: "loginController",
                 controllerAs: "vm"
             }).state("information", {
-                url: "/information/{id}",
+                url: "/information/{pageId}",
                 templateUrl: "/Content/pages/information.html",
                 controller: "informationController",
                 controllerAs: "vm"
