@@ -1,5 +1,4 @@
 ﻿using oleksandrbachkai.DataAccess;
-using oleksandrbachkai.Models.Context;
 using oleksandrbachkai.Models.Entities;
 using System.Collections.Generic;
 using System.Net;
@@ -12,8 +11,7 @@ namespace oleksandrbachkai.Controllers
     [RoutePrefix("api/content")]
     [Authorize(Roles = "Administrator")]
     public class ContentController : ApiController
-    {
-        private readonly DatabaseContext _context = new DatabaseContext();
+    {        
         private readonly IPagesRepository _pagesRepository = new SqlPagesRepository();
 
         [Route("")]
@@ -113,7 +111,7 @@ namespace oleksandrbachkai.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            _context?.Dispose();            
+            _pagesRepository?.Dispose();            
 
             base.Dispose(disposing);
         }

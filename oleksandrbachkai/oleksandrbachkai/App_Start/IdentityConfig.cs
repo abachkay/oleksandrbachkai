@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using oleksandrbachkai.Models;
 using oleksandrbachkai.Services;
+using oleksandrbachkai.Models.Context;
 
 namespace oleksandrbachkai.App_Start
 {    
@@ -17,7 +18,7 @@ namespace oleksandrbachkai.App_Start
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
-            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));            
+            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<DatabaseContext>()));            
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
             {
                 AllowOnlyAlphanumericUserNames = false,

@@ -11,6 +11,7 @@ using oleksandrbachkai.Providers;
 using oleksandrbachkai.Models;
 using oleksandrbachkai.App_Start;
 using System.Threading.Tasks;
+using oleksandrbachkai.Models.Context;
 
 namespace oleksandrbachkai
 {
@@ -24,7 +25,7 @@ namespace oleksandrbachkai
         public void ConfigureAuth(IAppBuilder app)
         {
             // Configure the db context and user manager to use a single instance per request
-            app.CreatePerOwinContext(ApplicationDbContext.Create);
+            app.CreatePerOwinContext(DatabaseContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
 
             // Enable the application to use a cookie to store information for the signed in user
