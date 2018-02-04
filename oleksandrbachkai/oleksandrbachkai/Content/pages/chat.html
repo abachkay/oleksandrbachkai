@@ -1,1 +1,9 @@
 ﻿<h2>{{vm.title}}</h2>
+<p ng-repeat="message in vm.messages">
+    {{message.Text}} 
+    <button ng-if="vm.isUserAdmin" ng-click="vm.deleteMessage(message.MessageId)">X</button>
+</p>
+<p>
+    <textarea ng-model="vm.newMessage"></textarea>
+    <button ng-click="vm.createMessage()">Send</button>
+</p>

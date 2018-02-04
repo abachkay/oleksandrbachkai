@@ -24,7 +24,7 @@
             return $http({
                 method: "POST",
                 url: "/api/messages",
-                data: { Text = text },
+                data: { "Text" : text },
                 headers: { "Authorization": "Bearer " + $cookies.get("access_token") }
             });
         }

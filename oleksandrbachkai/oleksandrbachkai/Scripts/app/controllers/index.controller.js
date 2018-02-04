@@ -5,8 +5,7 @@
     indexController.$inject = ["$scope", "$rootScope", "$timeout", "$cookies", "loginService", "informationService", "$location"];
     function indexController($scope, $rootScope, $timeout, $cookies, loginService, informationService, $location) {
         var vm = this;
-        vm.title = "index";   
-        vm.title = "index";
+        vm.title = "index";           
         vm.pages = [];               
         vm.selectInformationPage = selectInformationPage;        
         vm.createPage = createPage;
@@ -21,7 +20,7 @@
 
         function initialize() {
             getUserInfo();
-            getPages();  
+            getPages();              
         }
         
         function getPages() {
@@ -38,7 +37,7 @@
         {
             vm.pageId = pageId;   
             $timeout(function () {
-                $rootScope.$broadcast("pageSelected", vm.pageId);
+                $rootScope.$broadcast("pageSelected", vm.pageId);                
             });           
         }
 
@@ -59,6 +58,7 @@
             loginService.logout().then(function() {                                
                 vm.UserEmail = null;
                 vm.isUserAdmin = false;
+                $rootScope.$broadcast("userChanged", false );
                 $cookies.put("access_token", undefined);
                 $location.path("/");
             });
@@ -69,6 +69,7 @@
                 loginService.getUserInfo().then(function (response) {
                     vm.UserEmail = response.data.Email;
                     vm.isUserAdmin = response.data.IsAdministrator;
+                    $rootScope.$broadcast("userChanged", vm.isUserAdmin );
                 });
             }           
         }

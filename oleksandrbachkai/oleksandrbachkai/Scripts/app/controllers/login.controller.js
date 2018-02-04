@@ -36,7 +36,10 @@
 
         function register() {
             loginService.register(vm.registerEmail, vm.registerPassword, vm.registerPasswordConfirm).then(function (response) {                
-                vm.registerErrors = null;                
+                vm.registerErrors = null;         
+                vm.registerEmail = "";
+                vm.registerPassword = "";
+                vm.registerPasswordConfirm = "";
             }, function (response) {
                 vm.registerErrorsArray = [];
                 vm.registerErrors = "";
