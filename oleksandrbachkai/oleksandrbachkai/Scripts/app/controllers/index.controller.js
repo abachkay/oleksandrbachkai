@@ -20,7 +20,56 @@
 
         function initialize() {
             getUserInfo();
-            getPages();              
+            getPages();       
+
+            $scope.$on("loggedIn", function () {
+                getUserInfo();
+            });
+
+            $scope.$on("adminRequested", function () {
+                $rootScope.$broadcast("adminResponded", vm.isUserAdmin);
+            });
+
+            // Authorization completation logic.
+            var externalAuthParams = {};
+            var accountConfirmationParams = {};
+            var pairs = $location.url().split(/#|&|\?/);
+            for (var i = 0; i < pairs.length; i++) {
+                var keyValue = pairs[i].split("=");
+                if (keyValue.length == 2) {
+                    if (keyValue[0] == "access_token") {
+                        externalAuthParams.token = keyValue[1];
+                    } else if (keyValue[0] == "email") {
+                        externalAuthParams.email = keyValue[1];
+                    } else if (keyValue[0] == "userId") {
+                        accountConfirmationParams.userId = keyValue[1];
+                    } else if (keyValue[0] == "confirmationCode") {
+                        accountConfirmationParams.confirmationCode = keyValue[1];
+                    }
+                }
+            }
+            if (externalAuthParams.token && externalAuthParams.email) {
+                console.log(externalAuthParams);
+                loginService
+                    .registerExternal(externalAuthParams.token, externalAuthParams.email).then(
+                    function (response) {
+                        console.log(response);
+                        $cookies.put("access_token", response.data.access_token);
+                        loginService.getExternalLogins().then(function (response) {
+                            location.href = response.data[0].Url;
+                        });
+                    });
+            } else if (externalAuthParams.token) {
+                $cookies.put("access_token", externalAuthParams.token);
+                $location.path("/");
+                getUserInfo();
+            }
+            if (accountConfirmationParams.userId && accountConfirmationParams.confirmationCode) {
+                loginService.confirmEmail(accountConfirmationParams.userId, accountConfirmationParams.confirmationCode)
+                    .then(function () {
+                        $location.url("/login");
+                    });
+            }
         }
         
         function getPages() {
@@ -57,8 +106,7 @@
         function logout() {
             loginService.logout().then(function() {                                
                 vm.UserEmail = null;
-                vm.isUserAdmin = false;
-                $rootScope.$broadcast("userChanged", false );
+                vm.isUserAdmin = false;                
                 $cookies.put("access_token", undefined);
                 $location.path("/");
             });
@@ -68,52 +116,9 @@
             if ($cookies.get("access_token")) {
                 loginService.getUserInfo().then(function (response) {
                     vm.UserEmail = response.data.Email;
-                    vm.isUserAdmin = response.data.IsAdministrator;
-                    $rootScope.$broadcast("userChanged", vm.isUserAdmin );
+                    vm.isUserAdmin = response.data.IsAdministrator;                    
                 });
             }           
-        }
-
-        $scope.$on("loggedIn", function () { getUserInfo(); });
-           
-        var externalAuthParams = {};
-        var accountConfirmationParams = {};
-        var pairs = $location.url().split(/#|&|\?/);
-        for (var i = 0; i < pairs.length; i++) {
-            var keyValue = pairs[i].split("=");
-            if (keyValue.length == 2) {
-                if (keyValue[0] == "access_token") {
-                    externalAuthParams.token = keyValue[1];
-                } else if (keyValue[0] == "email") {
-                    externalAuthParams.email = keyValue[1];               
-                } else if (keyValue[0] == "userId") {
-                    accountConfirmationParams.userId = keyValue[1];
-                } else if (keyValue[0] == "confirmationCode") {
-                    accountConfirmationParams.confirmationCode = keyValue[1];
-                }                                          
-            }
-        }
-        if (externalAuthParams.token && externalAuthParams.email) {
-            console.log(externalAuthParams);
-            loginService
-                .registerExternal(externalAuthParams.token, externalAuthParams.email).then(
-                function (response) {
-                    console.log(response);
-                    $cookies.put("access_token", response.data.access_token);
-                    loginService.getExternalLogins().then(function(response) {
-                        location.href = response.data[0].Url;
-                    });
-                });
-        } else if (externalAuthParams.token) {
-            $cookies.put("access_token", externalAuthParams.token);
-            $location.path("/");
-            getUserInfo();
-        }        
-        if (accountConfirmationParams.userId && accountConfirmationParams.confirmationCode) {
-            loginService.confirmEmail(accountConfirmationParams.userId, accountConfirmationParams.confirmationCode)
-                .then(function () {
-                    $location.url("/login");                    
-                });
-        }
+        }                          
     }
 })(angular);

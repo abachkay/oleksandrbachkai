@@ -2,8 +2,8 @@
     angular
         .module("app")
         .controller("chatController", chatController);
-    chatController.$inject = ["$scope","chatService"];
-    function chatController($scope, $chatService) {
+    chatController.$inject = ["$scope", "$rootScope", "$timeout", "chatService"];
+    function chatController($scope, $rootScope, $timeout, $chatService) {
         var vm = this;
         vm.title = "chat";        
         vm.getMessages = getMessages;
@@ -12,15 +12,18 @@
         vm.isUserAdmin = false;
         vm.newMessage = "";
 
-        init();
+        initialize();
 
-        function init() {
+        function initialize() {
             getMessages();
-            $scope.$on("userChanged", function (event, isUserAdmin) {
-                vm.isUserAdmin = isUserAdmin;
-                console.log(isUserAdmin);
+
+            $timeout(function () {
+                $rootScope.$broadcast("adminRequested");
             });
 
+            $scope.$on("adminResponded", function (event, isUserAdmin) {
+                vm.isUserAdmin = isUserAdmin;
+            });
         }
        
         function getMessages() {

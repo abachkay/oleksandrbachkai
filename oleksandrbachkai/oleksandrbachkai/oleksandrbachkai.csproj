@@ -282,10 +282,15 @@
     <Content Include="Content\pages\files.html" />
     <Content Include="Content\pages\information.html" />
     <Content Include="Content\pages\welcome.html" />
+    <Content Include="Content\styles\animate.min.css" />
     <Content Include="Content\styles\bootstrap\bootstrap-theme.css" />
     <Content Include="Content\styles\bootstrap\bootstrap-theme.min.css" />
     <Content Include="Content\styles\bootstrap\bootstrap.css" />
     <Content Include="Content\styles\bootstrap\bootstrap.min.css" />
+    <Content Include="Content\styles\font-awesome.min.css" />
+    <Content Include="Content\styles\main.css" />
+    <Content Include="Content\styles\prettyPhoto.css" />
+    <Content Include="Content\styles\responsive.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
