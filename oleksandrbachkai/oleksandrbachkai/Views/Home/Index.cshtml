@@ -4,12 +4,16 @@
     <base href="/" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>a</title>
-    <link href="~/Content/styles/angular-material.css" rel="stylesheet" />
-    <link href="~/Content/styles/bootstrap/bootstrap.css" rel="stylesheet" />
+    <title>a</title>    
+    <link href="~/Content/styles/bootstrap/bootstrap.css" rel="stylesheet" />    
+    <link href="~/Content/styles/site/animate.min.css" rel="stylesheet" />
+    <link href="~/Content/styles/site/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/styles/site/main.css" rel="stylesheet" />
+    <link href="~/Content/styles/site/prettyPhoto.css" rel="stylesheet" />
+    <link href="~/Content/styles/site/responsive.css" rel="stylesheet" />
     <link href="~/Content/styles/Site.css" rel="stylesheet" />
-
-    <script src="~/Scripts/libs/jquery/jquery-3.1.1.js"></script>
+    
+    <script src="~/Scripts/libs/jquery/jquery-3.1.1.js"></script>    
     <script src="~/Scripts/libs/bootstrap/bootstrap.js"></script>
     <script src="~/Scripts/libs/angular/angular.js"></script>
     <script src="~/Scripts/libs/angular/angular-material.js"></script>
@@ -33,36 +37,38 @@
     <script src="~/Scripts/app/services/login.service.js"></script>
     <script src="~/Scripts/app/services/chat.service.js"></script>
 </head>
-<body ng-app="app" ng-controller="indexController as vm">
-    <div class="navbar navbar-inverse navbar-fixed-top">
+<body ng-app="app" ng-controller="indexController as vm">    
+    <div class="navbar navbar-inverse" role="banner">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                </button>
-                <a ui-sref="welcome">Welcome</a>
+                </button>                
             </div>
-            <div class="navbar-collapse collapse">
+            <div class="navbar-collapse collapse navbar-right">               
                 <ul class="nav navbar-nav">
+                    <li><a ui-sref="welcome">Home</a></li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" href data-toggle="dropdown">
                             Information
                             <span class="caret"></span>
                         </a>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu dropdown-toggle">
                             <li ng-repeat="(index, page) in vm.pages">
                                 <a ui-sref="information({id: {{index + 1}}})" ng-click="vm.selectInformationPage(page.PageId)">{{page.Name}}</a>
-                                <button ng-click="vm.deletePage(page.PageId)" ng-if="vm.UserEmail && vm.isUserAdmin">X</button>
+                                <button class="btn btn-primary" ng-click="vm.deletePage(page.PageId)" ng-if="vm.UserEmail && vm.isUserAdmin">X</button>                                
                             </li>
-                            <li ng-if="vm.UserEmail && vm.isUserAdmin"><input type="text" ng-model="vm.newPageName" /><button ng-click="vm.createPage()">+</button></li>
+                            <li ng-if="vm.UserEmail && vm.isUserAdmin">
+                                <input type="text" ng-model="vm.newPageName" placeholder="New page" />
+                            <button class="btn btn-primary" ng-click="vm.createPage()">+</button></li>
                         </ul>
                     </li>
-                    <li><a ui-sref="files" ng-if="vm.UserEmail && vm.isUserAdmin">Files</a></li>
-                    <li><a ui-sref="chat" ng-if="vm.UserEmail">Chat</a></li>
-                    <li><a ng-if="!vm.UserEmail" ui-sref="login">Login</a></li>
-                    <li><a ng-if="vm.UserEmail" href ng-click="vm.logout()">Logout</a></li>
+                    <li ng-if="vm.UserEmail && vm.isUserAdmin"><a ui-sref="files" >Files</a></li>
+                    <li ng-if="vm.UserEmail"><a ui-sref="chat">Chat</a></li>
+                    <li ng-if="!vm.UserEmail"><a ui-sref="login">Login</a></li>
+                    <li ng-if="vm.UserEmail"><a href ng-click="vm.logout()">Logout</a></li>
                 </ul>
             </div>
         </div>

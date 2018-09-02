@@ -67,9 +67,9 @@
 
         function updatePage() {
             if (vm.pageId) {                
-                informationService.updatePage(vm.pageId, vm.content).then(function(response) {
+                informationService.updatePage(vm.pageId, vm.content).then(function (response) {                   
                     getPage(vm.pageId);
-                    vm.edit = false;
+                    vm.edit = false;                          
                 });
             }
         }       

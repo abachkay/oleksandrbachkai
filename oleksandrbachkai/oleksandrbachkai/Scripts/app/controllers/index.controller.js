@@ -9,7 +9,7 @@
         vm.pages = [];               
         vm.selectInformationPage = selectInformationPage;        
         vm.createPage = createPage;
-        vm.newPageName = "New page";
+        vm.newPageName = "";
         vm.deletePage = deletePage;
         vm.logout = logout;
         vm.userEmail = null;
@@ -92,8 +92,7 @@
 
         function createPage() {
             informationService.createPage(vm.newPageName).then(function (response) {
-                getPages();
-                vm.newPageName = "New page";
+                getPages();                
             });
         }
 
